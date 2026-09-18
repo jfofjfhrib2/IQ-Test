@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>IQometer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .card {
+      background: #1e293b;
+      padding: 24px 20px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 420px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+    h1 {
+      text-align: center;
+      margin-top: 0;
+      font-size: 28px;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+      background: #0b1220;
+      color: #e5e7eb;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 14px;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #3b82f6;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #2563eb;
+    }
+    #result {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 18px;
+      min-height: 24px;
+    }
+    .highlight {
+      color: #fbbf24;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>IQometer</h1>
+    <label for="nameInput">Dein Name:</label>
+    <input id="nameInput" type="text" placeholder="Name eingeben" />
+    <button id="submitBtn">Absenden</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    // Hilfsfunktion: zufälliger, realistischer IQ (zwischen 70 und 145)
+    function randomRealisticIQ() {
+      return Math.floor(Math.random() * (145 - 70 + 1)) + 70;
+    }
+
+    document.getElementById("submitBtn").addEventListener("click", function () {
+      const nameRaw = document.getElementById("nameInput").value.trim();
+      // Normalisieren: Groß-/Kleinschreibung ignorieren
+      const name = nameRaw.toLowerCase();
+
+      let iq;
+
+      if (name === "jonah zenker") {
+        iq = 2500000;
+      } else if (
+        name === "leonard rouenhoff" ||
+        name === "ole bosse" ||
+        name === "anton bosse"
+      ) {
+        iq = 2;
+      } else {
+        iq = randomRealisticIQ();
+      }
+
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML =
+        "Dein IQ: <span class='highlight'>" + iq + " IQ</span>";
+    });
+
+    // Enter-Taste im Eingabefeld löst auch Absenden aus
+    document.getElementById("nameInput").addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        document.getElementById("submitBtn").click();
+      }
+    });
+  </script>
+</body>
+</html>
